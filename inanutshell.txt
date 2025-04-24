@@ -1,0 +1,92 @@
+Basically a better requirements document for the lab.
+Additionally, where the different behaviours of the previous labs should go.
+Why would you add the server stuff in the base requirements and then add another server requirements section like what.
+That yoinky sploinky.
+That gloopy soupy.
+
+1. Additions
+Server:
+- Objects in the collection passed to the client must be sorted by default
+- Datagrams must be used for data exchange on the server
+- Waiting for connections and requests from the client.
+- Processing of received requests (commands).
+- Saving the collection to a file at application shutdown.
+- Saving the collection to a file when executing a special command available only to the server (the client cannot send such a command).
+- Realize logging of different stages of server operation (start of operation, receiving a new connection, receiving a new request, sending a response, etc.) using Logback
+- The server must run in single-threaded mode.
+--- Modules to add ---
+- Connection Acceptance Module
+- Request Reading Module
+- Command Processing Module
+- Response Sending Module
+- Logging Module
+Client:
+- The client must handle temporary server unavailability correctly.
+- A network channel must be used for data exchange on the client
+- Network channels must be used in non-blocking mode.
+- Serialization of the entered command and its arguments.
+- Sending the received command and its arguments to the server.
+- Processing the response from the server (outputting the result of command execution to the console).
+- The save command should be removed from the client application.
+- The exit command terminates the client application.
+--- Modules to add ---
+- Network Communication Module
+- Response Processing Module
+
+
+
+2. Common:
+- Collection object processing operations must be implemented with the Stream API using lambda expressions.
+- Objects between client and server must be passed in serialized form.
+- Data exchange between the client and the server must be performed via the UDP protocol
+--- Modules to add ---
+- Command Classes
+- Serialization Utilities (Automatic through the Serializable interface for our current classes. Added in case we need to add custom serialization)
+- Model Classes
+- Command Interface
+
+*Not all modules are listed, only the ones that are new or changed from the previous lab assignment. The rest of the modules are the same as in the previous lab assignment.*
+
+3. Where previous behaviours go:
+Server:
+- Working with a file that stores a collection.
+- Managing the collection of objects.
+- Assigning automatically generated fields to objects in the collection.
+Client:
+- Reading commands from the console.
+- Validation of input data.
+
+
+
+4. Commands:
+Server:
+- SaveCommand (Saves the collection to a file) ---------SERVER ONLY---------
+- AddCommand (Adds the received object to the collection)
+- AddIfMinCommand (Adds the received object to the collection if it is less than the minimum element of the collection)
+- UpdateCommand (Sends data for the specified element to the client, receives the updated object from the client and updates the collection)
+- ClearCommand (Clears the collection)
+- CountByGenreCommand (Counts the number of elements in the collection with the specified genre and returns the result to the client)
+- CountLessThanOscarsCommand (Counts the number of elements in the collection with the specified number of Oscars and returns the result to the client)
+- ExecuteScriptCommand
+- FilterContainsNameCommand (Filters the collection by the specified name and returns the result to the client)
+- RemoveByIdCommand (Removes the object with the specified ID from the collection)
+- RemoveHeadCommand (Removes the first object from the collection)
+- RemoveLowerCommand (Removes all elements from the collection that are less than the specified element)
+- HelpCommand (Returns a list of available commands to the client)
+- InfoCommand (Returns information about the collection to the client)
+- ShowCommand (Returns the collection elements to the client)
+Client:
+- AddCommand (Creates an object and sends it to the server)
+- AddIfMinCommand (Creates an object and sends it to the server)
+- ClearCommand (Sends a request to the server to clear the collection)
+- CountByGenreCommand (Sends a request to the server to count the number of elements in the collection with the specified genre)
+- CountLessThanOscarsCommand (Sends a request to the server to count the number of elements in the collection with the specified number of Oscars)
+- ExecuteScriptCommand
+- FilterContainsNameCommand (Sends a request to the server to filter the collection by the specified name)
+- HelpCommand (Sends a request to the server to return a list of available commands)
+- InfoCommand (Sends a request to the server to return information about the collection)
+- RemoveByIdCommand (Sends a request to the server to remove the object with the specified ID from the collection)
+- RemoveHeadCommand (Sends a request to the server to remove the first object from the collection)
+- RemoveLowerCommand (Sends a request to the server to remove all elements from the collection that are less than the specified element)
+- ShowCommand (Sends a request to the server to return the collection elements)
+- UpdateCommand (Sends a request to the server to retrieve the object with the specified ID from the collection, update it locally and send it back to the server)

@@ -1,0 +1,37 @@
+1. Base requirements:
+- Collection object processing operations must be implemented with the Stream API using lambda expressions.
+- Objects between client and server must be passed in serialized form.
+- Objects in the collection passed to the client must be sorted by default
+- The client must handle temporary server unavailability correctly.
+- Data exchange between the client and the server must be performed via the UDP protocol
+- Datagrams must be used for data exchange on the server
+- A network channel must be used for data exchange on the client
+- Network channels must be used in non-blocking mode.
+
+2. Server application responsibilities:
+- Working with a file that stores a collection.
+- Managing the collection of objects.
+- Assigning automatically generated fields to objects in the collection.
+- Waiting for connections and requests from the client.
+- Processing of received requests (commands).
+- Saving the collection to a file at application shutdown.
+- Saving the collection to a file when executing a special command available only to the server (the client cannot send such a command).
+- The server application should consist of the following modules (implemented as one or more classes):
+- Connection Acceptance Module.
+- Module of reading the request.
+- Module of processing the received commands.
+- Module of sending responses to the client.
+- The server must run in single-threaded mode.
+
+3. Responsibilities of the client application:
+- Reading commands from the console.
+- Validation of input data.
+- Serialization of the entered command and its arguments.
+- Sending the received command and its arguments to the server.
+- Processing the response from the server (outputting the result of command execution to the console).
+- The save command should be removed from the client application.
+- The exit command terminates the client application.
+- Important! Commands and their arguments must be class objects. The exchange of “simple” strings is inadmissible. For example, for the add command or its analog, you must form an object containing the command type and an object to be stored in your collection.
+
+4. Additional assignment:
+Realize logging of different stages of server operation (start of operation, receiving a new connection, receiving a new request, sending a response, etc.) using Logback
